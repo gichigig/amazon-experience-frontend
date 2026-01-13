@@ -72,13 +72,13 @@ const DealsSection = () => {
     <section className="py-6">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl md:text-2xl font-bold text-foreground">Today's Deals</h2>
-        <a href="#" className="text-amazon-blue text-sm hover:text-amazon-orange hover:underline">
+        <a href="/deals" className="text-amazon-blue text-sm hover:text-amazon-orange hover:underline">
           See all deals
         </a>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {deals.map((product) => (
-          <ProductCard key={product.id} {...product} />
+          <ProductCard key={product.id} {...product} title={product.title} />
         ))}
       </div>
     </section>
