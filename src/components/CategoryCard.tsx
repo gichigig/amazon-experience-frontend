@@ -1,12 +1,17 @@
+import { Link } from "react-router-dom";
+
 interface CategoryCardProps {
   title: string;
   image: string;
   link?: string;
 }
 
-const CategoryCard = ({ title, image, link = "#" }: CategoryCardProps) => {
+const CategoryCard = ({ title, image, link = "/deals" }: CategoryCardProps) => {
   return (
-    <div className="bg-card p-5 rounded cursor-pointer hover:shadow-lg transition-shadow h-full flex flex-col">
+    <Link 
+      to={link}
+      className="bg-card p-5 rounded cursor-pointer hover:shadow-lg transition-shadow h-full flex flex-col block"
+    >
       <h2 className="text-lg font-bold text-card-foreground mb-3">{title}</h2>
       <div className="flex-1 mb-3">
         <img
@@ -15,10 +20,10 @@ const CategoryCard = ({ title, image, link = "#" }: CategoryCardProps) => {
           className="w-full h-48 object-cover rounded"
         />
       </div>
-      <a href={link} className="text-amazon-blue text-sm hover:text-amazon-orange hover:underline">
-        See more
-      </a>
-    </div>
+      <span className="text-amazon-blue text-sm hover:text-amazon-orange hover:underline">
+        Shop now
+      </span>
+    </Link>
   );
 };
 

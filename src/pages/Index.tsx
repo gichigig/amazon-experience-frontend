@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import HeroCarousel from "@/components/HeroCarousel";
 import CategoryCard from "@/components/CategoryCard";
@@ -5,6 +6,7 @@ import CategoryGrid from "@/components/CategoryGrid";
 import DealsSection from "@/components/DealsSection";
 import ProductsRow from "@/components/ProductsRow";
 import Footer from "@/components/Footer";
+import { useAuth } from "@/contexts/AuthContext";
 
 const categoryGridItems = {
   gaming: [
@@ -54,6 +56,8 @@ const bestSellers = [
 ];
 
 const Index = () => {
+  const { user, profile } = useAuth();
+  
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -91,13 +95,25 @@ const Index = () => {
             title="Explore home bedding" 
             image="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&h=300&fit=crop"
           />
-          <div className="bg-card p-5 rounded flex flex-col">
-            <h2 className="text-lg font-bold text-card-foreground mb-3">Sign in for the best experience</h2>
-            <button className="amazon-button w-full mb-3">Sign in securely</button>
-            <a href="#" className="text-amazon-blue text-sm hover:text-amazon-orange hover:underline">
-              Create an account
-            </a>
-          </div>
+          {!user ? (
+            <div className="bg-card p-5 rounded flex flex-col">
+              <h2 className="text-lg font-bold text-card-foreground mb-3">Sign in for the best experience</h2>
+              <Link to="/login" className="amazon-button w-full mb-3 text-center">Sign in securely</Link>
+              <Link to="/login" className="text-amazon-blue text-sm hover:text-amazon-orange hover:underline">
+                Create an account
+              </Link>
+            </div>
+          ) : (
+            <div className="bg-card p-5 rounded flex flex-col">
+              <h2 className="text-lg font-bold text-card-foreground mb-3">Welcome back, {profile?.full_name || 'Customer'}!</h2>
+              <Link to="/deals" className="amazon-button w-full mb-3 text-center">Shop Today's Deals</Link>
+              {profile?.is_seller && (
+                <Link to="/seller/dashboard" className="text-amazon-blue text-sm hover:text-amazon-orange hover:underline">
+                  Go to Seller Dashboard
+                </Link>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Deals Section */}
